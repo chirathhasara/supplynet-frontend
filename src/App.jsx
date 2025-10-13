@@ -1,19 +1,21 @@
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 import './App.css'
 
-function App() {
+import { useContext } from 'react';
+import { AppContext } from './Context/AppContext';
+import AppRoutes from './Routes';
 
-  return(
+
+
+export default function App() {
+ 
+const { user } = useContext(AppContext);
+
+  return (
     <BrowserRouter>
-    <Routes>
-      <Route>
-        
-      </Route>
-    </Routes>
-    
+      <AppRoutes/>
     </BrowserRouter>
   )
- 
 }
 
-export default App
