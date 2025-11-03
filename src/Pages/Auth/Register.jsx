@@ -122,10 +122,10 @@ export default function Register() {
                 className="form-input"
               >
                 <option value="top_management">Top Management</option>
-                <option value="warehouse_managers">Warehouse Managers</option>
-                <option value="warehouse_storekeepers">Warehouse Storekeepers</option>
-                <option value="branch_managers">Branch Managers</option>
-                <option value="branch_storekeepers">Branch Storekeepers</option>
+                <option value="warehouse_manager">Warehouse Managers</option>
+                <option value="warehouse_storekeeper">Warehouse Storekeepers</option>
+                <option value="branch_manager">Branch Managers</option>
+                <option value="branch_storekeeper">Branch Storekeepers</option>
 
               </select>
               {errors.role && <p className="error">{errors.role[0]}</p>}

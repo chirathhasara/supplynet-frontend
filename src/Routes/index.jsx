@@ -9,6 +9,9 @@ import Create from '../Pages/Suppliers/Create';
 import Show from '../Pages/Suppliers/Show';
 import ProductCreate from '../Pages/Products/Create';
 import ViewProducts from '../Pages/Products/Show';
+import ProductOrders from '../Pages/BranchStorekeepers/ProductOrders';
+import ReceivedProductOrders from '../Pages/WarehouseStorekeepers/ReceivedProductOrders';
+import Delivery from '../Pages/WarehouseStorekeepers/Delivery';
 
 
 export default function AppRoutes() {
@@ -25,6 +28,9 @@ export default function AppRoutes() {
         <Route path="/suppliers/show" element={<Show/>} />
         <Route path="/products" element={<ProductCreate/>} />
         <Route path="/products/show" element={<ViewProducts/>} />
+        <Route path="/products/orders" element={<ProductOrders/>} />
+        <Route path="/products/orders/view" element={<ReceivedProductOrders/>} />
+        <Route path="/delivery" element={<Delivery />} />
       </Route>
 
       <Route element={<Layout />}>

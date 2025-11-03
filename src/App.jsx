@@ -7,7 +7,6 @@ import { AppContext } from './Context/AppContext';
 import AppRoutes from './Routes';
 
 
-
 export default function App() {
  
 const { user } = useContext(AppContext);

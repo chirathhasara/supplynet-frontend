@@ -1,0 +1,215 @@
+/* Scoped under .received-orders-layout to avoid conflicts with other pages */
+:root{
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --primary: #1e40af;
+    --primary-500: #3b82f6;
+    --muted: #6b7280;
+    --accent: rgba(59,130,246,0.08);
+    --danger: #ef4444;
+    --glass: rgba(255,255,255,0.6);
+    --shadow: 0 8px 24px rgba(16,24,40,0.06);
+}
+
+/* Top-level wrapper to fully scope styles */
+.received-orders-layout { 
+    max-width: 1100px;
+    margin: 32px auto;
+    padding: 24px;
+    box-sizing: border-box;
+    background: var(--bg);
+}
+
+/* overall container inside app layout */
+.received-orders-layout .received-orders-container {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* single order card */
+.received-orders-layout .order-card {
+    background: linear-gradient(180deg, var(--card), rgba(255,255,255,0.98));
+    border-radius: 14px;
+    padding: 18px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(30,64,175,0.06);
+    transition: transform .16s ease, box-shadow .16s ease;
+}
+
+.received-orders-layout .order-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 40px rgba(16,24,40,0.08);
+}
+
+/* header row */
+.received-orders-layout .order-header {
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.received-orders-layout .order-header h3 {
+    margin: 0;
+    color: var(--primary);
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+.received-orders-layout .order-header small {
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+/* meta */
+.received-orders-layout .order-meta {
+    color: #334155;
+    font-size: 0.85rem;
+    background: var(--accent);
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-weight: 600;
+}
+
+/* products grid */
+.received-orders-layout .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+    margin-top: 8px;
+}
+
+/* product item */
+.received-orders-layout .product-item {
+    background: linear-gradient(180deg, rgba(59,130,246,0.03), rgba(255,255,255,0.02));
+    border-radius: 10px;
+    padding: 12px;
+    border: 1px solid rgba(30,64,175,0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 64px;
+}
+
+.received-orders-layout .product-name {
+    color: #0f172a;
+    font-weight: 600;
+    font-size: 0.98rem;
+    margin-bottom: 4px;
+}
+
+.received-orders-layout .product-units {
+    color: var(--muted);
+    font-size: 0.88rem;
+}
+
+/* actions row */
+.received-orders-layout .order-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 14px;
+}
+
+/* button styles */
+.received-orders-layout .btn {
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* primary */
+.received-orders-layout .btn-primary {
+    background: linear-gradient(90deg, var(--primary-500), var(--primary));
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(30,64,175,0.12);
+}
+
+.received-orders-layout .btn-primary:hover { transform: translateY(-3px); }
+
+/* neutral / ghost */
+.received-orders-layout .btn-ghost {
+    background: transparent;
+    color: var(--primary);
+    border: 1px solid rgba(30,64,175,0.08);
+}
+
+.received-orders-layout .btn-ghost:hover {
+    background: rgba(59,130,246,0.06);
+    transform: translateY(-2px);
+}
+
+/* danger */
+.received-orders-layout .btn-danger {
+    background: linear-gradient(90deg, #fb7185, var(--danger));
+    color: white;
+    box-shadow: 0 6px 18px rgba(239,68,68,0.08);
+}
+
+.received-orders-layout .btn-danger:hover { transform: translateY(-3px); }
+
+
+.pro-update-btn,
+.pro-delete-btn,
+.pro-delivery-btn,
+.pro-delivered-btn{
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    color: white;
+    cursor: pointer;
+}
+
+.pro-update-btn{
+    background-color: #2bc3f1;
+}
+
+.pro-delivered-btn{
+    background-color: blue;
+}
+
+.pro-delete-btn{
+    background-color: rgb(250, 77, 55);
+}
+
+.pro-delivery-btn{
+    background-color: rgb(61, 250, 55);
+}
+
+
+/* small responsive tweaks */
+@media (max-width: 880px) {
+    .received-orders-layout .order-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+
+    .received-orders-layout .order-actions {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .received-orders-layout {
+        padding: 16px;
+    }
+}
+
+/* empty state scoped */
+.received-orders-layout .empty-state {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 28px;
+    text-align: center;
+    color: var(--muted);
+    border: 1px dashed rgba(30,64,175,0.06);
+}

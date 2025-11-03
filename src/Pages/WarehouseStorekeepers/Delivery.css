@@ -1,0 +1,156 @@
+/* Cleaned, compact styles inspired by ProductOrders.css */
+
+.delivery-layout {
+    padding: 1.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.delivery-card {
+    width: 100%;
+    max-width: 920px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 1.75rem;
+    box-shadow: 0 2px 10px rgba(16,24,40,0.06);
+}
+
+.order-header {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 12px;
+}
+
+.shop-name {
+    color: #1e40af;
+    font-size: 1.25rem;
+    margin: 0;
+}
+
+.warehouse-name {
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.order-meta {
+    color: #374151;
+    font-size: 0.85rem;
+    margin-top: 6px;
+}
+
+.products-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 12px 0;
+}
+
+.product-item {
+    background: #f8fafc;
+    border: 1px solid #e6eefc;
+    padding: 10px 12px;
+    border-radius: 8px;
+    min-width: 160px;
+}
+
+.product-name {
+    font-weight: 600;
+    color: #111827;
+}
+
+.product-units {
+    color: #6b7280;
+    font-size: 0.9rem;
+    margin-top: 6px;
+}
+
+.empty-products {
+    padding: 12px;
+    color: #6b7280;
+}
+
+.delivery-form {
+    margin-top: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-row label {
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.95rem;
+}
+
+.form-input {
+    padding: 0.75rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: #fff;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.08);
+}
+
+.form-message {
+    padding: 0.6rem 0.75rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+}
+
+.form-message.error {
+    background: #fee2e2;
+    color: #b91c1c;
+    border: 1px solid #fca5a5;
+}
+
+.form-message.success {
+    background: #ecfeff;
+    color: #065f46;
+    border: 1px solid #99f6e4;
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.btn-primary {
+    padding: 0.9rem 1.3rem;
+    background: #1e40af;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-primary:disabled {
+    background: #9ca3af;
+    cursor: not-allowed;
+}
+
+.btn-ghost {
+    padding: 0.9rem 1.1rem;
+    background: transparent;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+@media (max-width: 640px) {
+    .product-item { min-width: 120px; }
+    .delivery-card { padding: 1rem; }
+}
