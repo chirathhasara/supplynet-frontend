@@ -3,11 +3,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import './Delivery.css'; 
 
+
 export default function Delivery() {
     const { state } = useLocation();
     const navigate = useNavigate();
     const [products , setProducts] = useState([]); 
     const order = state?.order ?? null;
+
 
     async function getProducts(){
         try {

@@ -1,0 +1,128 @@
+.received-products-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: "Poppins", sans-serif;
+  color: #0b1a3c;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+.received-products-title {
+  text-align: center;
+  color: #007bff;
+  margin-bottom: 30px;
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+}
+
+.no-deliveries-text {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #6c757d;
+}
+
+.delivery-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px 25px;
+  margin-bottom: 25px;
+  box-shadow: 0 6px 14px rgba(0, 123, 255, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: slideUp 0.5s ease;
+}
+
+.delivery-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 20px rgba(0, 123, 255, 0.25);
+}
+
+.delivery-header h3 {
+  color: #004aad;
+  margin-bottom: 8px;
+}
+
+.delivery-header p {
+  margin: 3px 0;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.delivery-products {
+  margin-top: 12px;
+}
+
+.delivery-products h4 {
+  color: #007bff;
+  margin-bottom: 8px;
+}
+
+.product-item {
+  display: flex;
+  justify-content: space-between;
+  background: #f1f7ff;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+}
+
+.delivery-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.accept-btn,
+.reject-btn {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.accept-btn {
+  background: #007bff;
+  color: #fff;
+}
+
+.accept-btn:hover {
+  background: #0056cc;
+  transform: scale(1.05);
+}
+
+.reject-btn {
+  background: #e3f0ff;
+  color: #0056cc;
+}
+
+.reject-btn:hover {
+  background: #cce0ff;
+  transform: scale(1.05);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

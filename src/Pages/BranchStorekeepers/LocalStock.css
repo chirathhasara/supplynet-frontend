@@ -1,0 +1,47 @@
+.sst-container {
+  max-width: 750px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #f8fbff;
+  border-radius: 10px;
+  box-shadow: 0 6px 16px rgba(0, 85, 255, 0.1);
+  font-family: "Poppins", sans-serif;
+  color: #033366;
+}
+
+.sst-title {
+  margin-bottom: 16px;
+  text-align: center;
+  color: #0047b3;
+  font-weight: 600;
+}
+
+.sst-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.sst-table th,
+.sst-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid #d6e3ff;
+  text-align: left;
+}
+
+.sst-table th {
+  background: #e3f0ff;
+  color: #003d99;
+  font-weight: 600;
+}
+
+.sst-table tr:hover {
+  background: #f0f7ff;
+  transition: 0.2s;
+}
+
+.sst-loading,
+.sst-empty {
+  text-align: center;
+  color: #666;
+  font-size: 15px;
+}

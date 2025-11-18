@@ -104,9 +104,30 @@ export default function ReceivedProductOrders() {
                             
 
                             <div className="order-actions">
-                                <button onClick={() => handleUpdate(order.id)} className="pro-update-btn">Update</button>
-                                <button onClick={() => handleDelete(order.id)} className="pro-delete-btn">Delete</button>
-                               {isDelivered ? <button className="pro-delivered-btn">Delivered</button> : <button onClick={() => handleSetDelivery(order.id)} className="pro-delivery-btn">Set Delivery</button> } 
+                                <button 
+                                    onClick={() => handleUpdate(order.id)} 
+                                    className="action-btn pro-update-btn"
+                                >
+                                    Update
+                                </button>
+                                <button 
+                                    onClick={() => handleDelete(order.id)} 
+                                    className="action-btn pro-delete-btn"
+                                >
+                                    Delete
+                                </button>
+                                {isDelivered ? (
+                                    <button className="action-btn pro-delivered-btn">
+                                        Delivered
+                                    </button>
+                                ) : (
+                                    <button 
+                                        onClick={() => handleSetDelivery(order.id)} 
+                                        className="action-btn pro-delivery-btn"
+                                    >
+                                        Set Delivery
+                                    </button>
+                                )}
                             </div>
                         </div>
                     );

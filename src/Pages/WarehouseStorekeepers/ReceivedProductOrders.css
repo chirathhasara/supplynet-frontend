@@ -1,215 +1,449 @@
 /* Scoped under .received-orders-layout to avoid conflicts with other pages */
 :root{
-    --bg: #f8fafc;
-    --card: #ffffff;
-    --primary: #1e40af;
-    --primary-500: #3b82f6;
-    --muted: #6b7280;
-    --accent: rgba(59,130,246,0.08);
+    --bg-gradient: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
+    --card-bg: #ffffff;
+    --primary-blue: #0ea5e9;
+    --primary-light: #38bdf8;
+    --primary-dark: #0284c7;
+    --text-dark: #0f172a;
+    --text-muted: #64748b;
+    --accent-bg: rgba(14, 165, 233, 0.08);
+    --success: #10b981;
     --danger: #ef4444;
-    --glass: rgba(255,255,255,0.6);
-    --shadow: 0 8px 24px rgba(16,24,40,0.06);
+    --warning: #f59e0b;
+    --shadow-sm: 0 2px 8px rgba(14, 165, 233, 0.08);
+    --shadow-md: 0 4px 16px rgba(14, 165, 233, 0.12);
+    --shadow-lg: 0 8px 32px rgba(14, 165, 233, 0.16);
 }
 
 /* Top-level wrapper to fully scope styles */
 .received-orders-layout { 
-    max-width: 1100px;
-    margin: 32px auto;
-    padding: 24px;
-    box-sizing: border-box;
-    background: var(--bg);
+    min-height: 100vh;
+    background: var(--bg-gradient);
+    padding: 40px 24px;
+    animation: fadeIn 0.5s ease-in;
 }
 
-/* overall container inside app layout */
-.received-orders-layout .received-orders-container {
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Page Header */
+.received-orders-layout .page-header {
+    max-width: 1200px;
+    margin: 0 auto 32px;
     display: flex;
-    flex-direction: column;
-    gap: 18px;
+    align-items: center;
+    gap: 16px;
+    animation: slideDown 0.6s ease-out;
 }
 
-/* single order card */
+@keyframes slideDown {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.received-orders-layout .page-header-icon {
+    font-size: 48px;
+    filter: drop-shadow(0 4px 12px rgba(14, 165, 233, 0.3));
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.received-orders-layout .page-title {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Container */
+.received-orders-layout .received-orders-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    gap: 24px;
+}
+
+/* Order Card */
 .received-orders-layout .order-card {
-    background: linear-gradient(180deg, var(--card), rgba(255,255,255,0.98));
-    border-radius: 14px;
-    padding: 18px;
-    box-shadow: var(--shadow);
-    border: 1px solid rgba(30,64,175,0.06);
-    transition: transform .16s ease, box-shadow .16s ease;
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: var(--shadow-sm);
+    border: 2px solid rgba(14, 165, 233, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    animation: slideUp 0.5s ease-out backwards;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.received-orders-layout .order-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-blue), var(--primary-light));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
 }
 
 .received-orders-layout .order-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 14px 40px rgba(16,24,40,0.08);
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-light);
 }
 
-/* header row */
+.received-orders-layout .order-card:hover::before {
+    transform: scaleX(1);
+}
+
+.received-orders-layout .order-card:nth-child(1) { animation-delay: 0.1s; }
+.received-orders-layout .order-card:nth-child(2) { animation-delay: 0.2s; }
+.received-orders-layout .order-card:nth-child(3) { animation-delay: 0.3s; }
+.received-orders-layout .order-card:nth-child(4) { animation-delay: 0.4s; }
+
+/* Order Header */
 .received-orders-layout .order-header {
     display: flex;
-    gap: 12px;
-    align-items: baseline;
+    align-items: center;
     justify-content: space-between;
-    margin-bottom: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.received-orders-layout .order-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.received-orders-layout .shop-icon {
+    font-size: 32px;
+    filter: drop-shadow(0 2px 8px rgba(14, 165, 233, 0.3));
 }
 
 .received-orders-layout .order-header h3 {
     margin: 0;
-    color: var(--primary);
-    font-size: 1.15rem;
-    font-weight: 600;
-}
-
-.received-orders-layout .order-header small {
-    color: var(--muted);
-    font-size: 0.9rem;
-}
-
-/* meta */
-.received-orders-layout .order-meta {
-    color: #334155;
-    font-size: 0.85rem;
-    background: var(--accent);
-    padding: 6px 10px;
-    border-radius: 999px;
-    font-weight: 600;
-}
-
-/* products grid */
-.received-orders-layout .products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 12px;
-    margin-top: 8px;
-}
-
-/* product item */
-.received-orders-layout .product-item {
-    background: linear-gradient(180deg, rgba(59,130,246,0.03), rgba(255,255,255,0.02));
-    border-radius: 10px;
-    padding: 12px;
-    border: 1px solid rgba(30,64,175,0.04);
+    color: var(--text-dark);
+    font-size: 1.5rem;
+    font-weight: 700;
     display: flex;
-    flex-direction: column;
-    gap: 8px;
-    min-height: 64px;
-}
-
-.received-orders-layout .product-name {
-    color: #0f172a;
-    font-weight: 600;
-    font-size: 0.98rem;
-    margin-bottom: 4px;
-}
-
-.received-orders-layout .product-units {
-    color: var(--muted);
-    font-size: 0.88rem;
-}
-
-/* actions row */
-.received-orders-layout .order-actions {
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end;
-    margin-top: 14px;
-}
-
-/* button styles */
-.received-orders-layout .btn {
-    cursor: pointer;
-    border: none;
-    border-radius: 10px;
-    padding: 8px 12px;
-    font-weight: 600;
-    font-size: 0.95rem;
-    transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
-    display: inline-flex;
     align-items: center;
     gap: 8px;
 }
 
-/* primary */
-.received-orders-layout .btn-primary {
-    background: linear-gradient(90deg, var(--primary-500), var(--primary));
-    color: #fff;
-    box-shadow: 0 6px 18px rgba(30,64,175,0.12);
+.received-orders-layout .warehouse-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--accent-bg);
+    color: var(--primary-blue);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    backdrop-filter: blur(10px);
 }
 
-.received-orders-layout .btn-primary:hover { transform: translateY(-3px); }
-
-/* neutral / ghost */
-.received-orders-layout .btn-ghost {
-    background: transparent;
-    color: var(--primary);
-    border: 1px solid rgba(30,64,175,0.08);
+.received-orders-layout .order-id-badge {
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-light));
+    color: white;
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    box-shadow: var(--shadow-sm);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
 }
 
-.received-orders-layout .btn-ghost:hover {
-    background: rgba(59,130,246,0.06);
+/* Products Grid */
+.received-orders-layout .products-section {
+    margin: 24px 0;
+}
+
+.received-orders-layout .section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-dark);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.received-orders-layout .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+}
+
+.received-orders-layout .product-item {
+    background: linear-gradient(135deg, rgba(240, 249, 255, 0.8), rgba(224, 242, 254, 0.6));
+    border-radius: 16px;
+    padding: 18px;
+    border: 2px solid rgba(14, 165, 233, 0.12);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.received-orders-layout .product-item::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transform: rotate(45deg);
+    transition: all 0.5s ease;
+}
+
+.received-orders-layout .product-item:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary-light);
+}
+
+.received-orders-layout .product-item:hover::before {
+    top: 150%;
+}
+
+.received-orders-layout .product-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.received-orders-layout .product-icon {
+    font-size: 28px;
+}
+
+.received-orders-layout .product-name {
+    color: var(--text-dark);
+    font-weight: 700;
+    font-size: 1rem;
+    flex: 1;
+}
+
+.received-orders-layout .product-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.received-orders-layout .product-units {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: white;
+    color: var(--primary-blue);
+    padding: 6px 12px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(14, 165, 233, 0.1);
+}
+
+/* Order Actions */
+.received-orders-layout .order-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    margin-top: 24px;
+    flex-wrap: wrap;
+    padding-top: 20px;
+    border-top: 2px solid rgba(14, 165, 233, 0.08);
+}
+
+.received-orders-layout .action-btn {
+    padding: 14px 28px;
+    border: none;
+    border-radius: 16px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.received-orders-layout .action-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.received-orders-layout .action-btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.received-orders-layout .action-btn:active {
+    transform: scale(0.95);
+}
+
+.received-orders-layout .pro-update-btn {
+    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+    color: white;
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+}
+
+.received-orders-layout .pro-update-btn:hover {
+    box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4);
     transform: translateY(-2px);
 }
 
-/* danger */
-.received-orders-layout .btn-danger {
-    background: linear-gradient(90deg, #fb7185, var(--danger));
+.received-orders-layout .pro-delete-btn {
+    background: linear-gradient(135deg, #f87171, #ef4444);
     color: white;
-    box-shadow: 0 6px 18px rgba(239,68,68,0.08);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
 }
 
-.received-orders-layout .btn-danger:hover { transform: translateY(-3px); }
+.received-orders-layout .pro-delete-btn:hover {
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+    transform: translateY(-2px);
+}
 
-
-.pro-update-btn,
-.pro-delete-btn,
-.pro-delivery-btn,
-.pro-delivered-btn{
-    padding: 10px 20px;
-    border: none;
-    border-radius: 25px;
+.received-orders-layout .pro-delivery-btn {
+    background: linear-gradient(135deg, #34d399, #10b981);
     color: white;
-    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
 }
 
-.pro-update-btn{
-    background-color: #2bc3f1;
+.received-orders-layout .pro-delivery-btn:hover {
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+    transform: translateY(-2px);
 }
 
-.pro-delivered-btn{
-    background-color: blue;
+.received-orders-layout .pro-delivered-btn {
+    background: linear-gradient(135deg, #60a5fa, #3b82f6);
+    color: white;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    cursor: default;
+    opacity: 0.8;
 }
 
-.pro-delete-btn{
-    background-color: rgb(250, 77, 55);
+/* Empty State */
+.received-orders-layout .empty-state {
+    max-width: 600px;
+    margin: 60px auto;
+    background: white;
+    border-radius: 20px;
+    padding: 60px 40px;
+    text-align: center;
+    border: 2px dashed rgba(14, 165, 233, 0.2);
+    animation: pulse 2s ease-in-out infinite;
 }
 
-.pro-delivery-btn{
-    background-color: rgb(61, 250, 55);
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
 }
 
+.received-orders-layout .empty-icon {
+    font-size: 80px;
+    margin-bottom: 20px;
+    display: block;
+    animation: float 3s ease-in-out infinite;
+}
 
-/* small responsive tweaks */
-@media (max-width: 880px) {
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+.received-orders-layout .empty-state h3 {
+    color: var(--text-dark);
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+.received-orders-layout .empty-state p {
+    color: var(--text-muted);
+    font-size: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .received-orders-layout {
+        padding: 24px 16px;
+    }
+
+    .received-orders-layout .page-title {
+        font-size: 2rem;
+    }
+
     .received-orders-layout .order-header {
         flex-direction: column;
         align-items: flex-start;
-        gap: 6px;
+    }
+
+    .received-orders-layout .products-grid {
+        grid-template-columns: 1fr;
     }
 
     .received-orders-layout .order-actions {
-        justify-content: flex-start;
-        flex-wrap: wrap;
+        justify-content: stretch;
     }
 
-    .received-orders-layout {
-        padding: 16px;
+    .received-orders-layout .action-btn {
+        flex: 1;
+        justify-content: center;
     }
 }
 
-/* empty state scoped */
-.received-orders-layout .empty-state {
-    background: var(--card);
-    border-radius: 12px;
-    padding: 28px;
-    text-align: center;
-    color: var(--muted);
-    border: 1px dashed rgba(30,64,175,0.06);
+/* Loading Animation */
+@keyframes shimmer {
+    0% { background-position: -1000px 0; }
+    100% { background-position: 1000px 0; }
+}
+
+.received-orders-layout .loading-skeleton {
+    background: linear-gradient(90deg, #f0f9ff 25%, #e0f2fe 50%, #f0f9ff 75%);
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite;
 }

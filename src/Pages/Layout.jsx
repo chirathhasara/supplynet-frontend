@@ -36,7 +36,7 @@ export default function Layout() {
           <li><Link to="/dashboard">Products</Link></li>
           <li><Link to="/analytics">Business Analytics</Link></li>
           <li><Link to="/reports">Employees</Link></li>
-          <li><Link to="/strategy">Anomaly Detections</Link></li>
+          <li><Link to="/purchase-order/stat">Anomaly Detections</Link></li>
           <li><Link to="/performance">Sales Reports</Link></li>
         </ul>
       );
@@ -45,11 +45,13 @@ export default function Layout() {
         <ul className="menu-list">
           <li><Link to="/warehouse-manager">Home</Link></li>
           <li><Link to="/suppliers">Create Suppliers</Link></li>
+          <li><Link to="/rawmaterials/submit">Create RawMaterials</Link></li>
           <li><Link to="/suppliers/show">Show Suppliers</Link></li>
-          <li><Link to="/products/show">Raw Materials</Link></li>
+          <li><Link to="/rawmaterials/show">Raw Materials</Link></li>
           <li><Link to="/products">Products</Link></li>
           <li><Link to="/products/show">View Products</Link></li>
-          <li><Link to="/products/show">Purchase Orders</Link></li>
+          <li><Link to="/purchase-order/create">Purchase Orders</Link></li>
+          <li><Link to="/purchase-order/view">View Purchase Orders</Link></li>
           <li><Link to="/products/show">Received Orders</Link></li>
         </ul>
       );
@@ -57,11 +59,11 @@ export default function Layout() {
       return (
         <ul className="menu-list">
           <li><Link to="/stock">Stock Management</Link></li>
-          <li><Link to="/products/show">Received Orders</Link></li>
-          <li><Link to="/shipping">Shipping Orders</Link></li>
+          <li><Link to="/products/show">Received Product Orders</Link></li>
+          <li><Link to="/delivery/view">Shipping Orders</Link></li>
           <li><Link to="/tracking">Item Tracking</Link></li>
           <li><Link to="/products/orders/view">Product Orders</Link></li>
-          <li><Link to="/reports">Daily Reports</Link></li>
+          <li><Link to="/purchase-order/received">Received Purchase Orders</Link></li>
         </ul>
       );
     } else if (user?.role === 'branch_manager') {
@@ -76,9 +78,9 @@ export default function Layout() {
     } else if (user?.role === 'branch_storekeeper') {
       return (
         <ul className="menu-list">
-          <li><Link to="/local-stock">Local Stock</Link></li>
+          <li><Link to="/local/stock">Local Stock</Link></li>
           <li><Link to="/products/orders">Product Orders</Link></li>
-          <li><Link to="/returns">Received Orders</Link></li>
+          <li><Link to="/delivery/received">Received Orders</Link></li>
           <li><Link to="/requests">Errors Update</Link></li>
           <li><Link to="/daily-tasks">Daily Tasks</Link></li>
         </ul>
