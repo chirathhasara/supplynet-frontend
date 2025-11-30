@@ -4,7 +4,7 @@ import Login from '../Pages/Auth/Login'
 import Register from '../Pages/Auth/Register'
 import { useContext } from 'react';
 import { AppContext } from '../Context/AppContext';
-import Home from '../Pages/WarehouseManagers/Home';
+import Home from '../Pages/WarehouseManagers/Dashboard';
 import Create from '../Pages/Suppliers/Create';
 import RawMaterialsCreate from '../Pages/RawMaterials/Create';
 import RawMaterialsShow from '../Pages/RawMaterials/Show';
@@ -22,6 +22,10 @@ import LocalStock from '../Pages/BranchStorekeepers/LocalStock';
 import ReceivedPurchaseOrder from '../Pages/PurchaseOrders/ReceivedPurchaseOrder';
 import DeliveryView from '../Pages/WarehouseStorekeepers/DeliveryView';
 import PurchaseOrderStat from '../Pages/TopManagement/PurchaseOrderStat';
+import ShowStocks from '../Pages/TopManagement/ShowStocks';
+import ProductOrderStat from '../Pages/TopManagement/ProductOrderStat';
+import BranchManagerDashboard from '../Pages/BranchManagers/Dashboard';
+import Dashboard from '../Pages/TopManagement/Dashboard';
 
 
 export default function AppRoutes() {
@@ -52,13 +56,16 @@ export default function AppRoutes() {
         <Route path="/purchase-order/create" element={<CreatePurchaseOrder />} />
         <Route path="/purchase-order/view" element={<ViewPurchaseOrder />} />
         <Route path="/purchase-order/received" element={<ReceivedPurchaseOrder />} />
-        
+        <Route path="/all-products/view" element={<ShowStocks />} />
+        <Route path="/product-orders/stats" element={<ProductOrderStat/>} />
       </Route>
 
       <Route path="/purchase-order/stat" element={<PurchaseOrderStat />} />
 
       <Route element={<Layout />}>
         <Route path="/warehouse-manager" element={<Home/>} />
+        <Route path="/branch-manager" element={<BranchManagerDashboard/>} />
+        <Route path="/top-manager" element={<Dashboard/>} />
       </Route>
 
     </Routes>

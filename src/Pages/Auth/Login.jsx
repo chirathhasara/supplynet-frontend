@@ -32,8 +32,17 @@ export default function Login() {
     } else {
       localStorage.setItem("token", data.token);
       setToken(data.token);
-      navigate("/warehouse-manager");
+      if(data.user.role == 'warehouse_manager' || data.user.role == 'warehouse_storekeeper'){
+        navigate("/warehouse-manager");
+      }
+      else if(data.user.role == 'branch_storekeeper' || data.user.role == 'branch_manager'){
+         navigate("/branch-manager");
+      }
+      else if(data.user.role == 'top_management'){
+        navigate("/top-manager");
+      }
     }
+      
   }
 
   function handleEmail(e) {

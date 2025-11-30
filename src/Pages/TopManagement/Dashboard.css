@@ -1,0 +1,530 @@
+/* Top Management Dashboard Styles */
+
+.topMgmtDashboard__container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 2rem;
+  animation: topMgmtDashboard__fadeIn 0.6s ease-out;
+}
+
+@keyframes topMgmtDashboard__fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Header Section */
+.topMgmtDashboard__header {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  border-radius: 20px;
+  padding: 2.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 10px 40px rgba(30, 60, 114, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.topMgmtDashboard__header::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 70%
+  );
+  animation: topMgmtDashboard__pulse 15s infinite;
+}
+
+@keyframes topMgmtDashboard__pulse {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-10%, -10%) scale(1.1);
+  }
+}
+
+.topMgmtDashboard__headerContent {
+  position: relative;
+  z-index: 1;
+}
+
+.topMgmtDashboard__title {
+  color: white;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.topMgmtDashboard__titleIcon {
+  font-size: 2.5rem;
+  animation: topMgmtDashboard__bounce 2s infinite;
+}
+
+@keyframes topMgmtDashboard__bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.topMgmtDashboard__subtitle {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+/* Stats Grid */
+.topMgmtDashboard__statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.topMgmtDashboard__statCard {
+  background: white;
+  border-radius: 16px;
+  padding: 1.8rem;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  animation: topMgmtDashboard__slideUp 0.6s ease-out both;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+@keyframes topMgmtDashboard__slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.topMgmtDashboard__statCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.topMgmtDashboard__statCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #3b82f6, #60a5fa);
+}
+
+.topMgmtDashboard__statCard--blue::before {
+  background: linear-gradient(90deg, #3b82f6, #60a5fa);
+}
+
+.topMgmtDashboard__statCard--orange::before {
+  background: linear-gradient(90deg, #f97316, #fb923c);
+}
+
+.topMgmtDashboard__statCard--green::before {
+  background: linear-gradient(90deg, #10b981, #34d399);
+}
+
+.topMgmtDashboard__statCard--purple::before {
+  background: linear-gradient(90deg, #8b5cf6, #a78bfa);
+}
+
+.topMgmtDashboard__statCard--cyan::before {
+  background: linear-gradient(90deg, #06b6d4, #22d3ee);
+}
+
+.topMgmtDashboard__statCard--indigo::before {
+  background: linear-gradient(90deg, #6366f1, #818cf8);
+}
+
+.topMgmtDashboard__statCard--teal::before {
+  background: linear-gradient(90deg, #14b8a6, #2dd4bf);
+}
+
+.topMgmtDashboard__statCardGlow {
+  position: absolute;
+  bottom: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle,
+    rgba(59, 130, 246, 0.1) 0%,
+    transparent 70%
+  );
+  animation: topMgmtDashboard__rotate 10s linear infinite;
+}
+
+@keyframes topMgmtDashboard__rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.topMgmtDashboard__statCardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.topMgmtDashboard__statIcon {
+  font-size: 2.5rem;
+  animation: topMgmtDashboard__float 3s ease-in-out infinite;
+}
+
+@keyframes topMgmtDashboard__float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.topMgmtDashboard__statTrend {
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.3rem 0.7rem;
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.topMgmtDashboard__statTrend--positive {
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.1);
+}
+
+.topMgmtDashboard__statTrend--negative {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.topMgmtDashboard__statValue {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 0.3rem;
+  position: relative;
+  z-index: 1;
+}
+
+.topMgmtDashboard__statTitle {
+  font-size: 1rem;
+  color: #64748b;
+  font-weight: 500;
+  position: relative;
+  z-index: 1;
+}
+
+/* Quick Actions Section */
+.topMgmtDashboard__quickActionsSection {
+  margin-bottom: 2rem;
+}
+
+.topMgmtDashboard__sectionTitle {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.topMgmtDashboard__sectionTitle::before {
+  content: "";
+  width: 4px;
+  height: 30px;
+  background: linear-gradient(180deg, #3b82f6, #60a5fa);
+  border-radius: 2px;
+}
+
+.topMgmtDashboard__quickActionsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.topMgmtDashboard__actionCard {
+  padding: 2rem;
+  border-radius: 16px;
+  color: white;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  animation: topMgmtDashboard__slideUp 0.6s ease-out both;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.topMgmtDashboard__actionCard::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  transition: all 0.5s ease;
+}
+
+.topMgmtDashboard__actionCard:hover::before {
+  top: -10%;
+  right: -10%;
+  width: 120%;
+  height: 120%;
+}
+
+.topMgmtDashboard__actionCard:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+}
+
+.topMgmtDashboard__actionIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
+  animation: topMgmtDashboard__swing 2s ease-in-out infinite;
+}
+
+@keyframes topMgmtDashboard__swing {
+  0%,
+  100% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+}
+
+.topMgmtDashboard__actionTitle {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.topMgmtDashboard__actionDescription {
+  font-size: 1rem;
+  opacity: 0.95;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.topMgmtDashboard__actionArrow {
+  font-size: 1.5rem;
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+}
+
+.topMgmtDashboard__actionCard:hover .topMgmtDashboard__actionArrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Activity Section */
+.topMgmtDashboard__activitySection {
+  margin-bottom: 2rem;
+}
+
+.topMgmtDashboard__activityGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.topMgmtDashboard__activityCard {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  animation: topMgmtDashboard__slideUp 0.6s ease-out both;
+  border-left: 4px solid transparent;
+}
+
+.topMgmtDashboard__activityCard:hover {
+  transform: translateX(8px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.topMgmtDashboard__activityIcon {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.topMgmtDashboard__activityIcon--success {
+  background: linear-gradient(135deg, #10b981, #34d399);
+  color: white;
+  animation: topMgmtDashboard__pulse 2s infinite;
+}
+
+.topMgmtDashboard__activityIcon--info {
+  background: linear-gradient(135deg, #3b82f6, #60a5fa);
+  color: white;
+  animation: topMgmtDashboard__pulse 2s infinite 0.5s;
+}
+
+.topMgmtDashboard__activityIcon--warning {
+  background: linear-gradient(135deg, #f59e0b, #fbbf24);
+  color: white;
+  animation: topMgmtDashboard__pulse 2s infinite 1s;
+}
+
+@keyframes topMgmtDashboard__pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+  }
+}
+
+.topMgmtDashboard__activityContent {
+  flex: 1;
+}
+
+.topMgmtDashboard__activityTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0 0 0.3rem 0;
+}
+
+.topMgmtDashboard__activityText {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .topMgmtDashboard__statsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .topMgmtDashboard__container {
+    padding: 1rem;
+  }
+
+  .topMgmtDashboard__header {
+    padding: 1.5rem;
+  }
+
+  .topMgmtDashboard__title {
+    font-size: 1.8rem;
+  }
+
+  .topMgmtDashboard__subtitle {
+    font-size: 1rem;
+  }
+
+  .topMgmtDashboard__statsGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .topMgmtDashboard__quickActionsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .topMgmtDashboard__activityGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .topMgmtDashboard__statValue {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .topMgmtDashboard__title {
+    font-size: 1.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .topMgmtDashboard__titleIcon {
+    font-size: 2rem;
+  }
+
+  .topMgmtDashboard__statCard {
+    padding: 1.2rem;
+  }
+
+  .topMgmtDashboard__actionCard {
+    padding: 1.5rem;
+  }
+}
+
+/* Loading Animation */
+@keyframes topMgmtDashboard__shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.topMgmtDashboard__loading {
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 25%,
+    #e0e0e0 50%,
+    #f0f0f0 75%
+  );
+  background-size: 1000px 100%;
+  animation: topMgmtDashboard__shimmer 2s infinite;
+}

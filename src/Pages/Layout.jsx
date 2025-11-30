@@ -33,8 +33,9 @@ export default function Layout() {
     if (user?.role === 'top_management') {
       return (
         <ul className="menu-list">
-          <li><Link to="/dashboard">Products</Link></li>
-          <li><Link to="/analytics">Business Analytics</Link></li>
+          <li><Link to="/top-manager">Home</Link></li>
+          <li><Link to="/all-products/view">Products</Link></li>
+          <li><Link to="/product-orders/stats">Product Order details</Link></li>
           <li><Link to="/reports">Employees</Link></li>
           <li><Link to="/purchase-order/stat">Anomaly Detections</Link></li>
           <li><Link to="/performance">Sales Reports</Link></li>
@@ -58,6 +59,7 @@ export default function Layout() {
     } else if (user?.role === 'warehouse_storekeeper') {
       return (
         <ul className="menu-list">
+          <li><Link to="/stock">Home</Link></li>
           <li><Link to="/stock">Stock Management</Link></li>
           <li><Link to="/products/show">Received Product Orders</Link></li>
           <li><Link to="/delivery/view">Shipping Orders</Link></li>
@@ -69,6 +71,7 @@ export default function Layout() {
     } else if (user?.role === 'branch_manager') {
       return (
         <ul className="menu-list">
+          <li><Link to="/branch-manager">Home</Link></li>
           <li><Link to="/branch">Branch Overview</Link></li>
           <li><Link to="/sales">Sales Management</Link></li>
           <li><Link to="/customers">Customer Relations</Link></li>
@@ -78,6 +81,7 @@ export default function Layout() {
     } else if (user?.role === 'branch_storekeeper') {
       return (
         <ul className="menu-list">
+          <li><Link to="/branch-manager">Home</Link></li>
           <li><Link to="/local/stock">Local Stock</Link></li>
           <li><Link to="/products/orders">Product Orders</Link></li>
           <li><Link to="/delivery/received">Received Orders</Link></li>
