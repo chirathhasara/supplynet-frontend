@@ -72,9 +72,9 @@ export default function Layout() {
       return (
         <ul className="menu-list">
           <li><Link to="/branch-manager">Home</Link></li>
-          <li><Link to="/branch">Branch Overview</Link></li>
-          <li><Link to="/sales">Sales Management</Link></li>
-          <li><Link to="/customers">Customer Relations</Link></li>
+          <li><Link to="/sales/forecast/data">Forecast Data</Link></li>
+          <li><Link to="/sales/forecast">Sales Forecast</Link></li>
+          <li><Link to="/sales">Sales</Link></li>
           <li><Link to="/orders">Order Management</Link></li>
         </ul>
       );

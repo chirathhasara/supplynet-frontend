@@ -26,6 +26,9 @@ import ShowStocks from '../Pages/TopManagement/ShowStocks';
 import ProductOrderStat from '../Pages/TopManagement/ProductOrderStat';
 import BranchManagerDashboard from '../Pages/BranchManagers/Dashboard';
 import Dashboard from '../Pages/TopManagement/Dashboard';
+import SalesForcast from '../Pages/BranchManagers/SalesForcast';
+import ForecastData from '../Pages/BranchManagers/ForecastData';
+import Sales from '../Pages/BranchManagers/Sales';
 
 
 export default function AppRoutes() {
@@ -58,6 +61,9 @@ export default function AppRoutes() {
         <Route path="/purchase-order/received" element={<ReceivedPurchaseOrder />} />
         <Route path="/all-products/view" element={<ShowStocks />} />
         <Route path="/product-orders/stats" element={<ProductOrderStat/>} />
+        <Route path="/sales/forecast" element={<SalesForcast/>} />
+        <Route path="/sales/forecast/data" element={<ForecastData/>} />
+        <Route path="/sales" element={<Sales/>} />
       </Route>
 
       <Route path="/purchase-order/stat" element={<PurchaseOrderStat />} />

@@ -1,0 +1,184 @@
+import { useContext, useEffect, useState } from "react"
+import { AppContext } from "../../Context/AppContext"
+import axios from "axios"
+import "./ForecastData.css"
+
+export default function ForecastData(){
+
+    const {user, token} = useContext(AppContext);
+    const [predictions, setPredictions] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        if (user && user.shop_id) {
+            fetchPredictions();
+        }
+    }, [user]);
+
+    const fetchPredictions = async () => {
+        try {
+            setLoading(true);
+            setError(null);
+            const response = await axios.get(`/api/predictions/shop/${user.shop_id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            setPredictions(response.data.data);
+        } catch (err) {
+            setError(err.response?.data?.message || "Failed to fetch predictions");
+            console.error("Error fetching predictions:", err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const formatDate = (dateString) => {
+        return new Date(dateString).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        });
+    };
+
+    if (loading) {
+        return (
+            <div className="forecastdata-container">
+                <div className="forecastdata-loading">
+                    <div className="forecastdata-spinner"></div>
+                    <p>Loading predictions...</p>
+                </div>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="forecastdata-container">
+                <div className="forecastdata-error">
+                    <svg className="forecastdata-error-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="12" cy="12" r="10" strokeWidth="2"/>
+                        <line x1="12" y1="8" x2="12" y2="12" strokeWidth="2"/>
+                        <line x1="12" y1="16" x2="12.01" y2="16" strokeWidth="2"/>
+                    </svg>
+                    <h3>Error Loading Predictions</h3>
+                    <p>{error}</p>
+                    <button onClick={fetchPredictions} className="forecastdata-retry-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M1 4v6h6M23 20v-6h-6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                        Retry
+                    </button>
+                </div>
+            </div>
+        );
+    }
+
+    return(
+        <div className="forecastdata-container">
+            <div className="forecastdata-header">
+                <div className="forecastdata-header-content">
+                    <svg className="forecastdata-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M22 12h-4l-3 9L9 3l-3 9H2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    <h1>Sales Forecast Data</h1>
+                </div>
+                <button onClick={fetchPredictions} className="forecastdata-refresh-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M1 4v6h6M23 20v-6h-6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    Refresh
+                </button>
+            </div>
+
+            {predictions.length === 0 ? (
+                <div className="forecastdata-empty">
+                    <svg className="forecastdata-empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="12" cy="12" r="10" strokeWidth="2"/>
+                        <line x1="12" y1="8" x2="12" y2="16" strokeWidth="2"/>
+                        <line x1="8" y1="12" x2="16" y2="12" strokeWidth="2"/>
+                    </svg>
+                    <h3>No Predictions Available</h3>
+                    <p>There are no forecast predictions for your shop yet.</p>
+                </div>
+            ) : (
+                <div className="forecastdata-grid">
+                    {predictions.map((prediction, index) => (
+                        <div 
+                            key={prediction.id} 
+                            className="forecastdata-card"
+                            style={{ animationDelay: `${index * 0.1}s` }}
+                        >
+                            <div className="forecastdata-card-header">
+                                <div className="forecastdata-product-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" strokeWidth="2"/>
+                                        <circle cx="8.5" cy="8.5" r="1.5" fill="currentColor"/>
+                                        <path d="M21 15l-5-5L5 21" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div className="forecastdata-product-name">
+                                    <h3>{prediction.product?.name || 'Unknown Product'}</h3>
+                                    <span className="forecastdata-product-id">ID: {prediction.product_id}</span>
+                                </div>
+                            </div>
+
+                            <div className="forecastdata-card-body">
+                                <div className="forecastdata-prediction-badge">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                    </svg>
+                                    <div>
+                                        <span className="forecastdata-units-label">Predicted Units</span>
+                                        <span className="forecastdata-units-value">{prediction.predicted_units_for_week}</span>
+                                    </div>
+                                </div>
+
+                                <div className="forecastdata-date-range">
+                                    <div className="forecastdata-date-item">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" strokeWidth="2"/>
+                                            <line x1="16" y1="2" x2="16" y2="6" strokeWidth="2"/>
+                                            <line x1="8" y1="2" x2="8" y2="6" strokeWidth="2"/>
+                                            <line x1="3" y1="10" x2="21" y2="10" strokeWidth="2"/>
+                                        </svg>
+                                        <div>
+                                            <span className="forecastdata-date-label">Start Date</span>
+                                            <span className="forecastdata-date-value">{formatDate(prediction.start_date)}</span>
+                                        </div>
+                                    </div>
+                                    <div className="forecastdata-date-arrow">→</div>
+                                    <div className="forecastdata-date-item">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" strokeWidth="2"/>
+                                            <line x1="16" y1="2" x2="16" y2="6" strokeWidth="2"/>
+                                            <line x1="8" y1="2" x2="8" y2="6" strokeWidth="2"/>
+                                            <line x1="3" y1="10" x2="21" y2="10" strokeWidth="2"/>
+                                        </svg>
+                                        <div>
+                                            <span className="forecastdata-date-label">End Date</span>
+                                            <span className="forecastdata-date-value">{formatDate(prediction.end_date)}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="forecastdata-card-footer">
+                                <div className="forecastdata-shop-info">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" strokeWidth="2"/>
+                                        <polyline points="9 22 9 12 15 12 15 22" strokeWidth="2"/>
+                                    </svg>
+                                    <span>Shop ID: {prediction.shop_id}</span>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            )}
+        </div>
+    )
+}

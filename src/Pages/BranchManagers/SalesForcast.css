@@ -1,0 +1,334 @@
+/* Sales Forecast Component Styles - Blue & White Theme */
+
+.sf-forecast-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 50%, #90caf9 100%);
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.sf-forecast-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(33, 150, 243, 0.2);
+    padding: 2.5rem;
+    max-width: 900px;
+    width: 100%;
+    animation: sf-slide-up 0.5s ease-out;
+}
+
+@keyframes sf-slide-up {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.sf-forecast-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1565c0;
+    margin: 0 0 0.5rem 0;
+    text-align: center;
+}
+
+.sf-forecast-subtitle {
+    font-size: 1rem;
+    color: #64b5f6;
+    text-align: center;
+    margin: 0 0 2rem 0;
+}
+
+/* Message Styles */
+.sf-message {
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    animation: sf-fade-in 0.3s ease-out;
+}
+
+@keyframes sf-fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.sf-message-success {
+    background: #e3f2fd;
+    color: #1565c0;
+    border-left: 4px solid #2196f3;
+}
+
+.sf-message-error {
+    background: #ffebee;
+    color: #c62828;
+    border-left: 4px solid #f44336;
+}
+
+.sf-message-info {
+    background: #e1f5fe;
+    color: #0277bd;
+    border-left: 4px solid #03a9f4;
+}
+
+/* Form Styles */
+.sf-forecast-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.sf-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.sf-label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1565c0;
+    margin-bottom: 0.25rem;
+}
+
+.sf-select,
+.sf-input {
+    padding: 0.875rem 1rem;
+    border: 2px solid #bbdefb;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: white;
+    color: #424242;
+}
+
+.sf-select:focus,
+.sf-input:focus {
+    outline: none;
+    border-color: #2196f3;
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+}
+
+.sf-select:hover,
+.sf-input:hover {
+    border-color: #64b5f6;
+}
+
+/* Promotion Grid */
+.sf-promotion-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.sf-promotion-day {
+    background: linear-gradient(135deg, #e3f2fd 0%, #f5f5f5 100%);
+    border: 2px solid #bbdefb;
+    border-radius: 12px;
+    padding: 1rem;
+    transition: all 0.3s ease;
+}
+
+.sf-promotion-day:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(33, 150, 243, 0.2);
+    border-color: #64b5f6;
+}
+
+.sf-day-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #bbdefb;
+}
+
+.sf-day-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1565c0;
+}
+
+.sf-day-number {
+    font-size: 0.75rem;
+    color: #64b5f6;
+}
+
+/* Checkbox Styles */
+.sf-checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.sf-checkbox {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #2196f3;
+}
+
+.sf-checkbox-label {
+    font-size: 0.875rem;
+    color: #424242;
+    font-weight: 500;
+}
+
+/* Product Info Card */
+.sf-product-info {
+    background: linear-gradient(135deg, #e3f2fd 0%, #ffffff 100%);
+    border: 2px solid #bbdefb;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.sf-info-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1565c0;
+    margin: 0 0 1rem 0;
+}
+
+.sf-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.sf-info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.sf-info-label {
+    font-size: 0.875rem;
+    color: #64b5f6;
+    font-weight: 500;
+}
+
+.sf-info-value {
+    font-size: 1rem;
+    color: #1565c0;
+    font-weight: 600;
+}
+
+/* Submit Button */
+.sf-submit-btn {
+    background: linear-gradient(135deg, #2196f3 0%, #1565c0 100%);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-size: 1.125rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.sf-submit-btn:hover:not(:disabled) {
+    background: linear-gradient(135deg, #1976d2 0%, #0d47a1 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
+}
+
+.sf-submit-btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.sf-submit-btn:disabled {
+    background: linear-gradient(135deg, #90caf9 0%, #64b5f6 100%);
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Spinner Animation */
+.sf-spinner {
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: sf-spin 0.8s linear infinite;
+}
+
+@keyframes sf-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sf-forecast-container {
+        padding: 1rem;
+    }
+
+    .sf-forecast-card {
+        padding: 1.5rem;
+    }
+
+    .sf-forecast-title {
+        font-size: 2rem;
+    }
+
+    .sf-promotion-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sf-info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .sf-forecast-title {
+        font-size: 1.75rem;
+    }
+
+    .sf-forecast-subtitle {
+        font-size: 0.875rem;
+    }
+
+    .sf-submit-btn {
+        font-size: 1rem;
+        padding: 0.875rem 1.5rem;
+    }
+}
+
+/* Custom Scrollbar */
+.sf-forecast-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.sf-forecast-container::-webkit-scrollbar-track {
+    background: #e3f2fd;
+}
+
+.sf-forecast-container::-webkit-scrollbar-thumb {
+    background: #64b5f6;
+    border-radius: 4px;
+}
+
+.sf-forecast-container::-webkit-scrollbar-thumb:hover {
+    background: #2196f3;
+}
