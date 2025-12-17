@@ -162,7 +162,7 @@ export default function ViewProducts() {
                       <div className="product-details">
                         <div className="product-price">
                           <span className="price-label">Price:</span>
-                          <span className="price-value">${product.price}</span>
+                          <span className="price-value">Rs {product.price}</span>
                         </div>
                         <div className="product-units">
                           <span className="units-label">Units:</span>

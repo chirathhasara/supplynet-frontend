@@ -208,7 +208,7 @@ export default function ShowStocks() {
                   <p className="show-stocks-product-meta">
                     {product.product_price && (
                       <span className="show-stocks-price">
-                        ${Number(product.product_price).toFixed(2)}
+                        Rs {Number(product.product_price).toFixed(2)}
                       </span>
                     )}
                     <span className="show-stocks-shops-count">

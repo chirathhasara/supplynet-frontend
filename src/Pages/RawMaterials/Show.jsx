@@ -37,7 +37,7 @@ export default function Show() {
                         <div className="card-body">
                             <div className="info-row">
                                 <span className="label">Price:</span>
-                                <span className="value price">${raw.price}</span>
+                                <span className="value price">Rs {raw.price}</span>
                             </div>
                             <div className="info-row">
                                 <span className="label">Stock:</span>

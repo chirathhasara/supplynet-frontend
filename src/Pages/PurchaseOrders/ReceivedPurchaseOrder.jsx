@@ -382,7 +382,7 @@ export default function ReceivedPurchaseOrder() {
                 </div>
                 <div className="rpo-calculated-item">
                   <span className="rpo-calculated-label">Loss Amount:</span>
-                  <span className="rpo-calculated-value">${calculatedFields.loss_amount}</span>
+                  <span className="rpo-calculated-value">Rs {calculatedFields.loss_amount}</span>
                 </div>
               </div>
             </div>

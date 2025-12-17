@@ -73,7 +73,7 @@ export default function Show(){
                                 </div>
                                 <div className="po-detail-item">
                                     <span className="po-detail-label">Unit Price</span>
-                                    <span className="po-detail-value">${order.unit_price}</span>
+                                    <span className="po-detail-value">Rs {order.unit_price}</span>
                                 </div>
                             </div>
 
@@ -95,7 +95,7 @@ export default function Show(){
 
                         <div className="po-card-footer">
                             <span className="po-total-label">Total Amount</span>
-                            <span className="po-total-amount">${order.total_price}</span>
+                            <span className="po-total-amount">Rs {order.total_price}</span>
                         </div>
                     </div>
                 ))}

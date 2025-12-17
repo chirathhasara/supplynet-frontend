@@ -29,6 +29,9 @@ import Dashboard from '../Pages/TopManagement/Dashboard';
 import SalesForcast from '../Pages/BranchManagers/SalesForcast';
 import ForecastData from '../Pages/BranchManagers/ForecastData';
 import Sales from '../Pages/BranchManagers/Sales';
+import SalesStat from '../Pages/TopManagement/SalesStat';
+import OrderDetails from '../Pages/BranchStorekeepers/OrderDetails';
+import Employees from '../Pages/TopManagement/Employees';
 
 
 export default function AppRoutes() {
@@ -64,6 +67,9 @@ export default function AppRoutes() {
         <Route path="/sales/forecast" element={<SalesForcast/>} />
         <Route path="/sales/forecast/data" element={<ForecastData/>} />
         <Route path="/sales" element={<Sales/>} />
+        <Route path="/sales/stat" element={<SalesStat/>} />
+        <Route path="/order/details/view" element={<OrderDetails/>} />
+        <Route path="/employees" element={<Employees/>} />
       </Route>
 
       <Route path="/purchase-order/stat" element={<PurchaseOrderStat />} />

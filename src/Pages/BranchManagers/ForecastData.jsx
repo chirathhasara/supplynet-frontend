@@ -1,12 +1,15 @@
 import { useContext, useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { AppContext } from "../../Context/AppContext"
 import axios from "axios"
 import "./ForecastData.css"
 
 export default function ForecastData(){
 
+    const navigate = useNavigate();
     const {user, token} = useContext(AppContext);
     const [predictions, setPredictions] = useState([]);
+    const [stockData, setStockData] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -25,13 +28,82 @@ export default function ForecastData(){
                     Authorization: `Bearer ${token}`
                 }
             });
-            setPredictions(response.data.data);
+            const predictionsData = response.data.data;
+            setPredictions(predictionsData);
+            
+            // Fetch stock data for each product
+            await fetchStockData(predictionsData);
         } catch (err) {
             setError(err.response?.data?.message || "Failed to fetch predictions");
             console.error("Error fetching predictions:", err);
         } finally {
             setLoading(false);
         }
+    };
+
+    const fetchStockData = async (predictionsData) => {
+        try {
+            const stockPromises = predictionsData.map(prediction => 
+                axios.get(`/api/shops/${user.shop_id}/products/${prediction.product_id}/stock`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }).catch(err => {
+                    console.error(`Error fetching stock for product ${prediction.product_id}:`, err);
+                    return { data: { stock: 0 } };
+                })
+            );
+            
+            const stockResponses = await Promise.all(stockPromises);
+            const stockMap = {};
+            
+            predictionsData.forEach((prediction, index) => {
+                stockMap[prediction.product_id] = stockResponses[index].data.stock || 0;
+            });
+            
+            setStockData(stockMap);
+        } catch (err) {
+            console.error("Error fetching stock data:", err);
+        }
+    };
+
+    const calculateVariance = (productId, predictedUnits) => {
+        const currentStock = stockData[productId] || 0;
+        return currentStock - predictedUnits;
+    };
+
+    const calculateOrderQuantity = (variance) => {
+        // If variance is negative (need more stock), add safety buffer of 50
+        // If variance is positive (have excess stock), don't order unless prediction is high
+        if (variance < 0) {
+            return Math.abs(variance) + 50;
+        } else if (variance >= 0 && variance < 50) {
+            // If we have small excess, still order a minimal amount for safety
+            return 30;
+        }
+        return 0;
+    };
+
+    const handleCreateOrder = (prediction) => {
+        const variance = calculateVariance(prediction.product_id, prediction.predicted_units_for_week);
+        const orderQuantity = calculateOrderQuantity(variance);
+        
+        if (orderQuantity <= 0) {
+            alert("Stock level is sufficient. No order needed.");
+            return;
+        }
+
+        // Navigate to ProductOrders with pre-filled data
+        navigate('/products/orders', {
+            state: {
+                prefilledProducts: [{
+                    product_id: prediction.product_id,
+                    units: orderQuantity,
+                    productName: prediction.product?.name || 'Unknown Product'
+                }],
+                autoSelectMainWarehouse: true
+            }
+        });
     };
 
     const formatDate = (dateString) => {
@@ -127,13 +199,44 @@ export default function ForecastData(){
                             </div>
 
                             <div className="forecastdata-card-body">
-                                <div className="forecastdata-prediction-badge">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                                    </svg>
-                                    <div>
-                                        <span className="forecastdata-units-label">Predicted Units</span>
-                                        <span className="forecastdata-units-value">{prediction.predicted_units_for_week}</span>
+                                <div className="forecastdata-stats-grid">
+                                    <div className="forecastdata-stat-item forecastdata-prediction">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                        </svg>
+                                        <div>
+                                            <span className="forecastdata-stat-label">Predicted Units</span>
+                                            <span className="forecastdata-stat-value">{prediction.predicted_units_for_week}</span>
+                                        </div>
+                                    </div>
+
+                                    <div className="forecastdata-stat-item forecastdata-stock">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" strokeWidth="2"/>
+                                            <polyline points="3.27 6.96 12 12.01 20.73 6.96" strokeWidth="2"/>
+                                            <line x1="12" y1="22.08" x2="12" y2="12" strokeWidth="2"/>
+                                        </svg>
+                                        <div>
+                                            <span className="forecastdata-stat-label">Current Stock</span>
+                                            <span className="forecastdata-stat-value">{stockData[prediction.product_id] || 0}</span>
+                                        </div>
+                                    </div>
+
+                                    <div className={`forecastdata-stat-item forecastdata-variance ${
+                                        calculateVariance(prediction.product_id, prediction.predicted_units_for_week) < 0 
+                                            ? 'forecastdata-variance-negative' 
+                                            : 'forecastdata-variance-positive'
+                                    }`}>
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <line x1="12" y1="5" x2="12" y2="19" strokeWidth="2" strokeLinecap="round"/>
+                                            <polyline points="19 12 12 19 5 12" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                        </svg>
+                                        <div>
+                                            <span className="forecastdata-stat-label">Variance</span>
+                                            <span className="forecastdata-stat-value">
+                                                {calculateVariance(prediction.product_id, prediction.predicted_units_for_week)}
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -174,6 +277,17 @@ export default function ForecastData(){
                                     </svg>
                                     <span>Shop ID: {prediction.shop_id}</span>
                                 </div>
+                                <button 
+                                    onClick={() => handleCreateOrder(prediction)}
+                                    className="forecastdata-order-btn"
+                                    disabled={calculateOrderQuantity(calculateVariance(prediction.product_id, prediction.predicted_units_for_week)) <= 0}
+                                >
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" strokeWidth="2"/>
+                                        <path d="M9 12h6m-6 4h6" strokeWidth="2" strokeLinecap="round"/>
+                                    </svg>
+                                    Create Order ({calculateOrderQuantity(calculateVariance(prediction.product_id, prediction.predicted_units_for_week))} units)
+                                </button>
                             </div>
                         </div>
                     ))}

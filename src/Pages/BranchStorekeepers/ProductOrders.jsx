@@ -1,9 +1,12 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { AppContext } from "../../Context/AppContext";
 import "./ProductOrders.css";
 
 export default function ProductOrders(){
+    const location = useLocation();
+    const prefilledData = location.state;
 
     const [orders, setOrders] = useState({
         shop_id: '',
@@ -62,7 +65,19 @@ export default function ProductOrders(){
         try {
             const response = await axios.get('/api/warehouses');
             console.log(response.data.data);
-            setWarehouses(response.data.data || []);
+            const warehousesData = response.data.data || [];
+            setWarehouses(warehousesData);
+            
+            // Auto-select main warehouse if prefilled data indicates so
+            if (prefilledData?.autoSelectMainWarehouse && warehousesData.length > 0) {
+                // Find main warehouse (assuming it's the first one or has 'main' in name)
+                const mainWarehouse = warehousesData.find(w => 
+                    w.name?.toLowerCase().includes('main') || 
+                    w.name?.toLowerCase().includes('central')
+                ) || warehousesData[0];
+                
+                setOrders(prev => ({...prev, ware_house_id: mainWarehouse.id}));
+            }
         } catch (error) {
             console.error('Error fetching warehouses:', error);
         }
@@ -108,6 +123,20 @@ export default function ProductOrders(){
         getProducts();
         getWarehouses();
     },[]);
+
+    // Handle prefilled products from forecast data
+    useEffect(() => {
+        if (prefilledData?.prefilledProducts && products.length > 0) {
+            const prefilledProductsData = prefilledData.prefilledProducts.map(item => ({
+                product_id: item.product_id,
+                units: item.units
+            }));
+            setOrders(prev => ({...prev, products: prefilledProductsData}));
+            
+            // Show info message
+            setMessage(`Pre-filled order with ${prefilledProductsData.length} product(s) based on forecast data. Please set the due date.`);
+        }
+    }, [prefilledData, products]);
 
     return(
         <div className="product-orders-container">

@@ -29,11 +29,21 @@ export default function Delivery() {
 
     const [date, setDate] = useState(order ? toDateInput(order.date ?? order.due_date) : '');
     const [shopId, setShopId] = useState(order ? (order.shop?.id ?? order.shop_id ?? '') : '');
-    const [productsField, setProductsField] = useState(() => {
-        if (!order) return '';
-        if (typeof order.products === 'string') return order.products;
-        try { return JSON.stringify(order.products); } catch { return ''; }
+    
+    // Parse initial products into manageable state
+    const [deliveryProducts, setDeliveryProducts] = useState(() => {
+        if (!order) return [];
+        try {
+            const raw = typeof order.products === 'string' ? JSON.parse(order.products) : order.products;
+            if (raw == null) return [];
+            if (Array.isArray(raw)) return raw.map((item, idx) => ({ ...item, tempId: idx }));
+            if (typeof raw === 'object') return [{ ...raw, tempId: 0 }];
+            return [];
+        } catch {
+            return [];
+        }
     });
+    
     const [distance, setDistance] = useState(order ? (order.distance ?? '') : '');
     const [approximateTime, setApproximateTime] = useState(order ? (order.approximate_time ?? '') : '');
 
@@ -47,8 +57,8 @@ export default function Delivery() {
         setSuccessMessage('');
 
         // client-side validation
-        if (!date || !shopId || !productsField || !distance || !approximateTime) {
-            setErrorMessage('All fields are required.');
+        if (!date || !shopId || deliveryProducts.length === 0 || !distance || !approximateTime) {
+            setErrorMessage('All fields are required, including at least one product.');
             return;
         }
         
@@ -61,11 +71,14 @@ export default function Delivery() {
 
         setSubmitting(true);
         try {
+            // Convert deliveryProducts back to JSON string format for API
+            const productsPayload = deliveryProducts.map(({ tempId, ...rest }) => rest);
+            
             const payload = {
                 date,
                 product_orders_id: order.id,
                 shop_id: shopId,
-                products: productsField,
+                products: JSON.stringify(productsPayload),
                 distance,
                 approximate_time: approximateTime
             };
@@ -168,14 +181,41 @@ export default function Delivery() {
                     </div>
 
                     <div className="form-row">
-                        <label>Products (JSON)</label>
-                        <textarea
-                            value={productsField}
-                            onChange={e => setProductsField(e.target.value)}
-                            required
-                            rows={4}
-                            className="form-input"
-                        />
+                        <label>Products for Delivery</label>
+                        <div className="delivery-products-list">
+                            {deliveryProducts.length > 0 ? (
+                                deliveryProducts.map((item) => {
+                                    const product = products.find(p => p.id == item.product_id) ?? { name: 'Unknown Product' };
+                                    return (
+                                        <div className="delivery-product-card" key={item.tempId}>
+                                            <div className="delivery-product-info">
+                                                <span className="delivery-product-name">{product.name}</span>
+                                                <span className="delivery-product-id">ID: {item.product_id}</span>
+                                            </div>
+                                            <div className="delivery-product-quantity">
+                                                <label>Quantity:</label>
+                                                <input
+                                                    type="number"
+                                                    min="0"
+                                                    value={item.units ?? item.unit ?? 0}
+                                                    onChange={(e) => {
+                                                        const newProducts = deliveryProducts.map(p => 
+                                                            p.tempId === item.tempId 
+                                                                ? { ...p, units: parseInt(e.target.value) || 0, unit: parseInt(e.target.value) || 0 }
+                                                                : p
+                                                        );
+                                                        setDeliveryProducts(newProducts);
+                                                    }}
+                                                    className="quantity-input"
+                                                />
+                                            </div>
+                                        </div>
+                                    );
+                                })
+                            ) : (
+                                <div className="empty-delivery-products">No products added for delivery.</div>
+                            )}
+                        </div>
                     </div>
 
                     <div className="form-row">

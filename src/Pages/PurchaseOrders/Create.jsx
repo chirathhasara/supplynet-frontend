@@ -206,7 +206,7 @@ export default function Create(){
                     <div className="po-total-section">
                         <span className="po-total-label">Total Amount:</span>
                         <span className="po-total-value">
-                            ${(formData.total_price || 0).toFixed(2)}
+                            Rs {(formData.total_price || 0).toFixed(2)}
                         </span>
                     </div>
 

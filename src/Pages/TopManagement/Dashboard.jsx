@@ -59,7 +59,7 @@ const Dashboard = () => {
     {
       id: 4,
       title: "Total Revenue",
-      value: `$${stats.totalRevenue.toLocaleString()}`,
+      value: `Rs ${stats.totalRevenue.toLocaleString()}`,
       icon: "💰",
       color: "purple",
       trend: "+15%",

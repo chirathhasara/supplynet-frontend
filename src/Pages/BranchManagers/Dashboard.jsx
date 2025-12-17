@@ -70,7 +70,7 @@ export default function BranchManagerDashboard() {
   ];
 
   const branchStats = [
-    { label: 'Daily Revenue', value: '$12,540', icon: '💰' },
+    { label: 'Daily Revenue', value: 'Rs 12,540', icon: '💰' },
     { label: 'Orders Today', value: '48', icon: '📦' },
     { label: 'Avg. Response Time', value: '15 min', icon: '⏱️' },
     { label: 'Customer Satisfaction', value: '4.8/5', icon: '⭐' }

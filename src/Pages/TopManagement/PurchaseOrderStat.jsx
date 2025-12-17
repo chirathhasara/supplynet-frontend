@@ -132,7 +132,7 @@ const PurchaseOrderStat = () => {
           </div>
           <div className="po-anomaly-card-content">
             <p className="po-anomaly-card-label">Total Loss Amount</p>
-            <h2 className="po-anomaly-card-value">${data.overview.total_loss_amount.toLocaleString()}</h2>
+            <h2 className="po-anomaly-card-value">Rs {data.overview.total_loss_amount.toLocaleString()}</h2>
           </div>
         </div>
       </div>
@@ -275,7 +275,7 @@ const PurchaseOrderStat = () => {
                   </td>
                   <td>{supplier.late_deliveries}</td>
                   <td>{parseFloat(supplier.avg_late_days).toFixed(1)} days</td>
-                  <td>${parseFloat(supplier.total_loss_amount).toLocaleString()}</td>
+                  <td>Rs {parseFloat(supplier.total_loss_amount).toLocaleString()}</td>
                   <td>
                     <button 
                       onClick={() => setSelectedSupplier(supplier)}
@@ -352,7 +352,7 @@ const PurchaseOrderStat = () => {
                 </div>
                 <div className="po-anomaly-modal-item">
                   <label>Total Loss Amount:</label>
-                  <p className="po-anomaly-loss-highlight">${parseFloat(selectedSupplier.total_loss_amount).toLocaleString()}</p>
+                  <p className="po-anomaly-loss-highlight">Rs {parseFloat(selectedSupplier.total_loss_amount).toLocaleString()}</p>
                 </div>
                 <div className="po-anomaly-modal-item po-anomaly-modal-full">
                   <label>Performance Summary:</label>
